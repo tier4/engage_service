@@ -23,43 +23,36 @@ EngageRelayService::EngageRelayService(
   const rclcpp::NodeOptions & options = rclcpp::NodeOptions())
 : Node("engage_relay_service", options)
 {
-  using namespace std::placeholders;
+  using std::placeholders::_1;
+  using std::placeholders::_2;
+  tier4_api_utils::ServiceProxyNodeInterface proxy(this);
 
   // Callback group
-  callback_group_service_ = this->create_callback_group(
+  callback_group_service_ = create_callback_group(
     rclcpp::CallbackGroupType::MutuallyExclusive);
 
   // Service
-  srv_auto_engage_ = this->create_service<tier4_external_api_msgs::srv::Engage>(
+  srv_auto_engage_ = proxy.create_service<ExternalEngage>(
     "/in_parking/set/auto_engage",
-    std::bind(
-      &EngageRelayService::execEngageProcess, this,
-      std::placeholders::_1, std::placeholders::_2));
+    std::bind(&EngageRelayService::execEngageProcess, this, _1, _2),
+    rmw_qos_profile_services_default, callback_group_service_);
 
   // Client
-  cli_engage_ = this->create_client<tier4_external_api_msgs::srv::Engage>(
-    "/api/external/set/engage",
-    rmw_qos_profile_services_default, callback_group_service_);
+  cli_engage_ = proxy.create_client<ExternalEngage>(
+    "/api/external/set/engage", rmw_qos_profile_services_default);
 }
 
 void EngageRelayService::execEngageProcess(
   const tier4_external_api_msgs::srv::Engage::Request::SharedPtr request,
   const tier4_external_api_msgs::srv::Engage::Response::SharedPtr response)
 {
-  auto req =
-    std::make_shared<tier4_external_api_msgs::srv::Engage::Request>();
-  req->engage = request->engage;
-
-  // Sending a request to autoware_state_machine
-  auto result = cli_engage_->async_send_request(req);
-
-  // Waiting a response
-  if(result.wait_for(std::chrono::seconds(3)) == std::future_status::ready) {
-    response->status = result.get()->status;
-  } else {
-    response->status = tier4_api_utils::response_error("No response from /api/external/set/engage.");
+  const auto [status, resp] = cli_engage_->call(request);
+  if (!tier4_api_utils::is_success(status)) {
+    response->status = status;
+    return;
   }
 
+  response->status = resp->status;
   return;
 }
 }  // namespace engage_relay_service
