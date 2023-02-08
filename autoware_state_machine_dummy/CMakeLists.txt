@@ -31,7 +31,6 @@ ament_auto_find_build_dependencies()
 
 ament_auto_add_library(awsm_dummy SHARED
   src/awsm_dummy.cpp
-  src/awsm_dummy.cpp
 )
 
 rclcpp_components_register_node(awsm_dummy

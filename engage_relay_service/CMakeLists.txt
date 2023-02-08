@@ -31,7 +31,6 @@ ament_auto_find_build_dependencies()
 
 ament_auto_add_library(engage_relay_service SHARED
   src/engage_relay_service.cpp
-  src/engage_relay_service_node.cpp
 )
 
 rclcpp_components_register_node(engage_relay_service
