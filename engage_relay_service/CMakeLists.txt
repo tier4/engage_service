@@ -1,4 +1,4 @@
-# Copyright 2021 eve autonomy inc. All Rights Reserved.
+# Copyright 2023 Tier IV, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,7 +31,6 @@ ament_auto_find_build_dependencies()
 
 ament_auto_add_library(engage_relay_service SHARED
   src/engage_relay_service.cpp
-  src/engage_relay_service_node.cpp
 )
 
 rclcpp_components_register_node(engage_relay_service

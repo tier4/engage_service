@@ -1,4 +1,4 @@
-// Copyright 2021 eve autonomy inc. All Rights Reserved.
+// Copyright 2023 Tier IV, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -36,10 +36,10 @@ private:
   rclcpp::CallbackGroup::SharedPtr callback_group_service_;
 
   // Service
-  rclcpp::Service<tier4_external_api_msgs::srv::Engage>::SharedPtr srv_auto_engage_;
+  tier4_api_utils::Service<ExternalEngage>::SharedPtr srv_auto_engage_;
 
   // Client
-  rclcpp::Client<ExternalEngage>::SharedPtr cli_engage_;
+  tier4_api_utils::Client<ExternalEngage>::SharedPtr cli_engage_;
 
   // Callback
   void execEngageProcess(
