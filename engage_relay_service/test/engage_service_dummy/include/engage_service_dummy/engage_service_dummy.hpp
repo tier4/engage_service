@@ -37,8 +37,8 @@ private:
 
   // Callback
   void execEngageProcess(
-    const tier4_external_api_msgs::srv::Engage::Request::SharedPtr request,
-    const tier4_external_api_msgs::srv::Engage::Response::SharedPtr response);
+    const ExternalEngage::Request::SharedPtr request,
+    const ExternalEngage::Response::SharedPtr response);
 };
 
 }  // namespace engage_service_dummy

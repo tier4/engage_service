@@ -19,7 +19,7 @@
 
 <package format="3">
   <name>engage_relay_service</name>
-  <version>1.0.0</version>
+  <version>0.0.0</version>
   <description>The engage_relay_service package</description>
   <maintainer email="yuma.nihei@tier4.jp">Yuma Nihei</maintainer>
   <license>Apache License 2.0</license>
