@@ -33,9 +33,21 @@ ament_auto_add_library(engage_relay_service SHARED
   src/engage_relay_service.cpp
 )
 
+ament_auto_add_library(engage_service_dummy SHARED
+  test/engage_service_dummy/src/engage_service_dummy.cpp
+)
+
+target_include_directories(engage_service_dummy
+  PRIVATE test/engage_service_dummy/include/
+)
+
 rclcpp_components_register_node(engage_relay_service
   PLUGIN "engage_relay_service::EngageRelayService"
   EXECUTABLE engage_relay_service_node)
+
+rclcpp_components_register_node(engage_service_dummy
+  PLUGIN "engage_service_dummy::EngageServiceDummy"
+  EXECUTABLE engage_service_dummy_node)
 
 ament_auto_package(INSTALL_TO_SHARE
   launch
