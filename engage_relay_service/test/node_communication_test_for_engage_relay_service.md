@@ -1,4 +1,4 @@
-# Node Communication Test
+# Node Communication Test for engage_relay_service
 
 ## Description
 
@@ -8,7 +8,7 @@ The following aspects are tested.
 |---|---|
 |1|Must be able to respond to requests for service communication. In the sequence diagram of the module design document, the service provided by own module/own node corresponds.|
 |2|If it is not ready to accept a request for service communication, it shall not accept the service request. (The service requester must know that the service cannot be requested.) In the sequence diagram of the module design document, the service provided by own module/own node corresponds.|
-|3|Must be able to request service from other modules. In the sequence diagram of the module design document, the service requested by own module/own node corresponds.|
+|3|This node must be able to provide service requests to other modules. In the sequence diagram of the module design document, the service requested by own module/own node corresponds.|
 |4|After requesting services from other modules, a corresponding response must be received. In the sequence diagram of the module design document, the service requested by own module/own node corresponds.|
 
 ## Test coverage
@@ -24,8 +24,6 @@ The correspondence between the test objects and the point of view is as follows.
 * About checkpoint 2 in this module  
    The services handled by this module are ready immediately after node startup. Therefore, it is impossible to check this checkpoint.
 
-The following are excluded from this test
-
 ### Common test procedure
 
 **Step.1**
@@ -33,7 +31,7 @@ The following are excluded from this test
 Launch `engage_service_dummy` node with the following commands.
 ```sh
 # Terminal-1
-ros2 launch engage_service_dummy engage_service_dummy.launch.py
+ros2 launch engage_relay_service engage_dummy_service.launch.xml
 ```
 
 **Step.2**
@@ -63,8 +61,6 @@ ros2 service call /in_parking/set/auto_engage tier4_external_api_msgs/srv/Engage
 
 ```sh
 # Terminal-3
-~$ ros2 service call /in_parking/set/auto_engage tier4_external_api_msgs/srv/Engage "{engage: true}"
-1676531359.800761 [21]       ros2: selected interface "lo" is not multicast-capable: disabling multicast
 requester: making request: tier4_external_api_msgs.srv.Engage_Request(engage=True)
 
 response:
@@ -82,7 +78,7 @@ tier4_external_api_msgs.srv.Engage_Response(status=tier4_external_api_msgs.msg.R
 
 ```sh
 # Terminal-1
-[component_container_mt-1] [DEBUG] [1676531359.901505283] [engage.engage_service_dummy]: Requested /api/external/set/engage:engage: true
+[engage_service_dummy_node-1] [DEBUG] [1676600229.478510002] [engage_service_dummy]: Requested /api/external/set/engage:engage: true
 ```
 
 #### Test procedure and criteria details of target No.3
@@ -95,8 +91,6 @@ tier4_external_api_msgs.srv.Engage_Response(status=tier4_external_api_msgs.msg.R
 
 ```sh
 # Terminal-3
-~$ ros2 service call /in_parking/set/auto_engage tier4_external_api_msgs/srv/Engage "{engage: true}"
-1676531359.800761 [21]       ros2: selected interface "lo" is not multicast-capable: disabling multicast
 requester: making request: tier4_external_api_msgs.srv.Engage_Request(engage=True)
 
 response:
