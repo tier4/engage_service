@@ -38,5 +38,7 @@ def generate_launch_description():
         executable="component_container_mt",
         composable_node_descriptions=components,
         output="screen",
+        respawn="true",
+        respawn_delay="1",
     )
     return launch.LaunchDescription([container])
