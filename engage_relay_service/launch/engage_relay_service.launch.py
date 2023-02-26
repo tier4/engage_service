@@ -23,8 +23,6 @@ def _create_node(node_name, class_name, **kwargs):
         name=node_name,
         package="engage_relay_service",
         plugin="engage_relay_service::" + class_name,
-        respawn="true",
-        respawn_delay="1",
         **kwargs
     )
 
@@ -40,7 +38,5 @@ def generate_launch_description():
         executable="component_container_mt",
         composable_node_descriptions=components,
         output="screen",
-        respawn="true",
-        respawn_delay="1",
     )
     return launch.LaunchDescription([container])
