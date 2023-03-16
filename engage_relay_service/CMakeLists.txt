@@ -29,8 +29,9 @@ endif()
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
-ament_auto_add_library(engage_relay_service SHARED
+ament_auto_add_executable(engage_relay_service
   src/engage_relay_service.cpp
+  src/engage_relay_service_node.cpp
 )
 
 ament_auto_add_library(engage_service_dummy SHARED
@@ -40,10 +41,6 @@ ament_auto_add_library(engage_service_dummy SHARED
 target_include_directories(engage_service_dummy
   PRIVATE test/engage_service_dummy/include/
 )
-
-rclcpp_components_register_node(engage_relay_service
-  PLUGIN "engage_relay_service::EngageRelayService"
-  EXECUTABLE engage_relay_service_node)
 
 rclcpp_components_register_node(engage_service_dummy
   PLUGIN "engage_service_dummy::EngageServiceDummy"

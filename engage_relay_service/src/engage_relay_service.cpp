@@ -55,7 +55,3 @@ void EngageRelayService::execEngageProcess(
   response->status = resp->status;
 }
 }  // namespace engage_relay_service
-
-#include "rclcpp_components/register_node_macro.hpp"
-
-RCLCPP_COMPONENTS_REGISTER_NODE(engage_relay_service::EngageRelayService)
