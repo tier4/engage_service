@@ -13,7 +13,7 @@
 // limitations under the License
 
 #include <memory>
-#include "engage_service_dummy/engage_service_dummy.hpp"
+#include "engage_service_dummy.hpp"
 
 namespace engage_service_dummy
 {

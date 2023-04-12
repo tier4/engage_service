@@ -39,7 +39,7 @@ ros2 launch engage_relay_service engage_dummy_service.launch.xml
 Launch `engage_relay_service` node with the following commands.
 ```sh
 # Terminal-2
-ros2 launch engage_relay_service engage_relay_service.launch.py
+ros2 launch engage_relay_service engage_relay_service.launch.xml
 ```
 
 **Step.3**
