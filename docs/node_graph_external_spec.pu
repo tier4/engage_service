@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+interface "service:\n/in_parking/set/auto_engage" as set_auto_engage
+usecase "/engage_srv_converter" as engage_cnv
+
+rectangle "engage service" {
+    usecase "autoware_state_machine"
+    usecase "engage_relay_service"  #LightCoral
+}
+
+interface "service:\n/api/autoware/set/engage" as set_engage
+
+(engage_relay_service) --> (autoware_state_machine) : \nservice:/api/external/set/engage
+(engage_relay_service) <.- (autoware_state_machine)
+(engage_cnv) --> (autoware_state_machine) : \n\nservice:/api/external/set/engage
+(engage_cnv) <.- (autoware_state_machine)
+(set_auto_engage) ---> (engage_relay_service)
+(set_auto_engage) <.-- (engage_relay_service)
+(autoware_state_machine) ---> (set_engage)
+(autoware_state_machine) <.-- (set_engage)
+
+@enduml
