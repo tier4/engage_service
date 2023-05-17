@@ -1,0 +1,14 @@
+@startuml
+left to right direction
+interface "service:\n/in_parking/set/auto_engage" as set_auto_engage
+
+rectangle "engage service" {
+    interface "service:\n/api/external/set/engage" as set_engage
+    usecase "engage_relay_service"  #LightCoral
+}
+
+(engage_relay_service) ----> (set_engage)
+(engage_relay_service) <.--- (set_engage)
+(set_auto_engage) ---> (engage_relay_service)
+(set_auto_engage) <.-- (engage_relay_service)
+@enduml
