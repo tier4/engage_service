@@ -37,7 +37,7 @@ void EngageServiceDummy::execEngageProcess(
   const tier4_external_api_msgs::srv::Engage::Response::SharedPtr response)
 {
   RCLCPP_DEBUG(this->get_logger(), "Requested /api/external/set/engage:%s",
-               rosidl_generator_traits::to_yaml(*request).c_str());
+               to_yaml(*request).c_str());
 
   response->status = tier4_api_utils::response_success("Received by EngageServiceDummy.");
 }
